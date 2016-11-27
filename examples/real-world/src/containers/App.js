@@ -24,17 +24,20 @@ class App extends Component {
   }
 
   renderErrorMessage() {
-    const { errorMessage } = this.props
+    const {errorMessage} = this.props
     if (!errorMessage) {
       return null
     }
 
     return (
-      <p style={{ backgroundColor: '#e99', padding: 10 }}>
+      <p style={{
+        backgroundColor: '#e99',
+        padding: 10
+      }}>
         <b>{errorMessage}</b>
         {' '}
         (<a href="#"
-            onClick={this.handleDismissClick}>
+      onClick={this.handleDismissClick}>
           Dismiss
         </a>)
       </p>
@@ -42,11 +45,12 @@ class App extends Component {
   }
 
   render() {
-    const { children, inputValue } = this.props
+    const {children} = this.props;
+    let inputValue = this.props.inputValue || 'reactjs';
     return (
       <div>
         <Explore value={inputValue}
-                 onChange={this.handleChange} />
+      onChange={this.handleChange} />
         <hr />
         {this.renderErrorMessage()}
         {children}
