@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
 const GITHUB_REPO = 'https://github.com/reactjs/redux'
 
@@ -8,21 +8,30 @@ export default class Explore extends Component {
     onChange: PropTypes.func.isRequired
   }
 
+  state = {
+    where: this.props.value || ''
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setInputValue(nextProps.value)
     }
   }
 
+  handleInputChange = e => {
+    this.setState({
+      where: e.target.value
+    })
+  }
+
   getInputValue = () => {
-    return this.refs.input.value
+    return this.state.where;
   }
 
   setInputValue = (val) => {
-    // Generally mutating DOM is a bad idea in React components,
-    // but doing this for a single uncontrolled field is less fuss
-    // than making it controlled and maintaining a state for it.
-    this.refs.input.value = val
+    this.setState({
+      where: val
+    });
   }
 
   handleKeyUp = (e) => {
@@ -40,9 +49,10 @@ export default class Explore extends Component {
       <div>
         <p>Type a username or repo full name and hit 'Go':</p>
         <input size="45"
-               ref="input"
-               defaultValue={this.props.value}
-               onKeyUp={this.handleKeyUp} />
+      ref="input"
+      defaultValue={this.state.where}
+      onChange={this.handleInputChange}
+      onKeyUp={this.handleKeyUp} />
         <button onClick={this.handleGoClick}>
           Go!
         </button>
